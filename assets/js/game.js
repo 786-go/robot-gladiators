@@ -14,8 +14,21 @@ var enemyHealth = 50;
 var enemyAttack = 12;
 
 var fight = function(enemyName) {
-    while (enemyHealth > 0) {
+    while (playerHealth > 0 && enemyHealth > 0) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+        // if player chooses to skip
+        if (promptFight === "skip" || promptFight === "SKIP") {
+            // confirm player wants to skip
+            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+            //if yes, leave fight
+            if (confirmSkip) {
+                window.alert(playerName + " has decided to skip this fight. Goodbye!");
+                playerMoney = playerMoney - 10;
+                console.log("playerMoney", playerMoney);
+                break;
+            }
+            
+        }
     
         // if player chooses to fight, then fight
         if (promptFight === "fight" || promptFight === "FIGHT") {
@@ -29,6 +42,8 @@ var fight = function(enemyName) {
         // check enemy's health
         if (enemyHealth <= 0) {
             window.alert(enemyName + " has died.");
+            playerMoney = playerMoney + 20
+            break;
         }
         else {
             window.alert(enemyName + " still has " + enemyHealth + " health left.");
@@ -42,26 +57,14 @@ var fight = function(enemyName) {
         // check player's health
         if (playerHealth <= 0) {
             window.alert(playerName + " has died!");
+            break;
         }
         else {
             window.alert(playerName + " still has " + playerHealth + " health left.");
         }
         }
     
-        // if player chooses to skip
-        else if (promptFight === "skip" || promptFight === "SKIP") {
-            // confirm player wants to skip
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-            //if yes, leave fight
-            if (confirmSkip) {
-                window.alert(playerName + " has decided to skip this fight. Goodbye!");
-                playerMoney = playerMoney - 2;
-            }
-            //if no, re-ask original question to fight
-            else {
-                fight();
-            }
-        }
+        
         else {
             window.alert("You need to choose a valid option. Try again!");
         }
